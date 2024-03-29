@@ -18,5 +18,14 @@ func main() {
 	router.Use(cors.Default())
 
 	router.POST("/entry/create", routes.AddEntry)
+	router.GET("/entries", routes.GetEntries)
+	router.GET("/entry/:id", routes.GetEntryByID)
+	router.GET("/ingrideints/:ingrideints", routes.GetEntriesByIngridients)
+
+
+	router.PUT("/entry/update/:id", routes.UpdateEntry)
+	router.PUT("/ingrideints/update/:id", routes.UpdateIngridients)
+	router.DELETE("/entry/delete/:id", routes.DeleteEntry)
+	router.Run(":" + port)
 }
 
