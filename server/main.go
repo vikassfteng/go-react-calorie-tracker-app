@@ -20,11 +20,11 @@ func main() {
 	router.POST("/entry/create", routes.AddEntry)
 	router.GET("/entries", routes.GetEntries)
 	router.GET("/entry/:id", routes.GetEntryByID)
-	router.GET("/ingrideints/:ingrideints", routes.GetEntriesByIngridients)
+	router.GET("/ingrideints/:ingrideints", routes.GetEntriesByIngridient)
 
 
 	router.PUT("/entry/update/:id", routes.UpdateEntry)
-	router.PUT("/ingrideints/update/:id", routes.UpdateIngridients)
+	router.PUT("/ingrideints/update/:id", routes.UpdateIngredient)
 	router.DELETE("/entry/delete/:id", routes.DeleteEntry)
 	router.Run(":" + port)
 }
