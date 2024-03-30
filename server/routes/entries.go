@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"log"
     "context"
     "fmt"
     "net/http"
@@ -24,7 +25,9 @@ func AddEntry(c *gin.Context) {
 	// AddEntry is a function that adds an entry to the database
 
 	var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
+	defer cancel()
 	var entry models.Entry
+	var entryCollection *mongo.Collection = OpenCollection(Client, "calories")
 
 	if err := c.BindJSON(&entry); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -33,22 +36,26 @@ func AddEntry(c *gin.Context) {
 	}
 
 	validationErr := validate.Struct(entry)
+	log.Println("validating entry")
+
 	if validationErr != nil {
+		log.Println("Inserting entry to the database and validationErr: ", validationErr)
+
 		c.JSON(http.StatusInternalServerError, gin.H{"error": validationErr.Error()})
 		fmt.Println(validationErr)
 		return
 	}
+	log.Println("Inserting entry to the database")
 
 	entry.ID = primitive.NewObjectID()
 	// for inserting entry to the database
 	result, insertErr := entryCollection.InsertOne(ctx, entry)
 	if insertErr != nil {
-		msg := fmt.Sprintf("Order Item was not created")
+		msg := fmt.Sprintf("Order Item was not created: %v", insertErr)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": msg})
 		fmt.Println(insertErr)
 		return
 	}
-	defer cancel()
 	c.JSON(http.StatusOK, result)
 
 }
@@ -57,6 +64,7 @@ func GetEntries(c *gin.Context) {
 	// GetEntries is a function that gets all entries from the database
 
 	var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
+	defer cancel()
 	var entries []bson.M
 	cursor, err := entryCollection.Find(ctx, bson.M{})
 
@@ -65,14 +73,13 @@ func GetEntries(c *gin.Context) {
 		fmt.Println(err)
 		return
 	}
-	cursor.All(ctx, &entries)
+	err = cursor.All(ctx, &entries)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		fmt.Println(err)
 		return
 	}
 
-	defer cancel()
 	fmt.Println(entries)
 	c.JSON(http.StatusOK, entries)
 }
@@ -156,7 +163,7 @@ func UpdateEntry(c *gin.Context) {
 	var entry models.Entry
 
 	if err := c.BindJSON(&entry); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		fmt.Println(err)
 		return
 	}
@@ -177,14 +184,14 @@ func UpdateEntry(c *gin.Context) {
 		bson.M{"_id": docID},
 		bson.M{
 			"dish":        entry.Dish,
-			"fat":         entry.Fat,
 			"ingredients": entry.Ingredients,
+			"fat":         entry.Fat,
 			"calories":    entry.Calories,
 		},
 	)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		fmt.Println(err)
+		log.Printf("Error replacing entry: %v\n", err)
 		return
 	}
 	defer cancel()

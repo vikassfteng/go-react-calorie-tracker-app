@@ -14,7 +14,7 @@ const Entries =() =>{
     const [changeIngredient, setChangeIngredient] = useState({"change": false, "id": 0})
     const [newIngredientName, setNewIngredientName] = useState("")
     const [addNewEntry, setAddNewEntry] = useState(false)
-    const newEntry = useState({"dish":"", "ingredients":"", "calories":0, fat:0})
+    const [newEntry, setNewEntry]= useState({dish:"", ingredients:"", calories:"", fat:0})
 
     useEffect(() => {
         getAllEntries();
@@ -79,13 +79,13 @@ const Entries =() =>{
             <Modal.Body>
                 <Form.Group>
                     <Form.Label>dish</Form.Label>
-                    <Form.Control onChange={(event) => {newEntry.dish = event.target.value}}></Form.Control>
+                    <Form.Control onChange={(event) => {setNewEntry({...newEntry, dish: event.target.value})}}></Form.Control>
                     <Form.Label>ingredients</Form.Label>
-                    <Form.Control onChange={(event) => {newEntry.ingredients = event.target.value}}></Form.Control>
+                    <Form.Control onChange={(event) => {setNewEntry({...newEntry, ingredients: event.target.value})}}></Form.Control>
                     <Form.Label>calorie</Form.Label>
-                    <Form.Control onChange={(event) => {newEntry.calories = event.target.value}}></Form.Control>
+                    <Form.Control onChange={(event) => {setNewEntry({...newEntry, calories: event.target.value})}}></Form.Control>
                     <Form.Label>fat</Form.Label>
-                    <Form.Control type="number" onChange={(event) => {newEntry.fat = event.target.value}}></Form.Control>
+                    <Form.Control type="number" onChange={(event) => {setNewEntry({...newEntry, fat: parseFloat(event.target.value)})}}></Form.Control>
                 </Form.Group>
                 <Button onClick={() => changeSingleEntry()}>Change</Button>
                 <Button onClick={() => setChangeEntry({"change": false, "id":0})}>Cancel</Button>
