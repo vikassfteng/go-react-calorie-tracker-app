@@ -55,3 +55,65 @@
 .track-calorie-button:hover {
   background-color: #45a049;
 }
+
+/* App.css */
+
+.add-button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.add-button:hover {
+  background-color: #45a049;
+}
+
+/* App.css */
+
+.change-button {
+  background-color: #008CBA;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.change-button:hover {
+  background-color: #007B9A;
+}
+
+.cancel-change-button {
+  background-color: #f44336;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.cancel-change-button:hover {
+  background-color: #da190b;
+}
+
+.common-button {
+  width: 200px; /* Adjust as needed */
+}

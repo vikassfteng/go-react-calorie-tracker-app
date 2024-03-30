@@ -53,8 +53,8 @@ const Entries =() =>{
                     <Form.Label>fat</Form.Label>
                     <Form.Control type="number" onChange={(event) => {newEntry.fat = event.target.value}}></Form.Control>
                 </Form.Group>
-                <Button onClick={() => addSingleEntry()}>Add</Button>
-                <Button onClick={()=> setAddNewEntry(false)}>Cancel</Button>
+                <Button className="add-button" onClick={() => addSingleEntry()}>Add</Button>
+                <Button className="cancel-button" onClick={()=> setAddNewEntry(false)}>Cancel</Button>
             </Modal.Body>
             </Modal>
 
@@ -68,8 +68,8 @@ const Entries =() =>{
                     <Form.Label>new ingredients</Form.Label>
                     <Form.Control onChange={(event) => {setNewIngredientName(event.target.value)}}></Form.Control>
                 </Form.Group>
-                <Button onClick={() => changeIngredientForEntry()}>Change</Button>
-                <Button onClick={() => setChangeIngredient({"change": false, "id":0})}>Cancel</Button>
+                <Button className="change-button" onClick={() => changeIngredientForEntry()}>Change</Button>
+                <Button className="cancel-change-button" onClick={() => setChangeIngredient({"change": false, "id":0})}>Cancel</Button>
             </Modal.Body>
             </Modal>
 
@@ -88,8 +88,8 @@ const Entries =() =>{
                     <Form.Label>fat</Form.Label>
                     <Form.Control type="number" onChange={(event) => {setNewEntry({...newEntry, fat: parseFloat(event.target.value)})}}></Form.Control>
                 </Form.Group>
-                <Button onClick={() => changeSingleEntry()}>Change</Button>
-                <Button onClick={() => setChangeEntry({"change": false, "id":0})}>Cancel</Button>
+                <Button className="change-button" onClick={() => changeSingleEntry()}>Change</Button>
+                <Button className="cancel-change-button" onClick={() => setChangeEntry({"change": false, "id":0})}>Cancel</Button>
             </Modal.Body>
         </Modal>
         </div> 
