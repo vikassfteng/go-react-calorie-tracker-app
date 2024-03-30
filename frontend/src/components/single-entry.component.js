@@ -13,9 +13,12 @@ const Entry =({entryData, setChangeIngredient, deleteSingleEntry, setChangeEntry
                 <Col>Ingredients:{entryData !== undefined && entryData.ingredients}</Col>
                 <Col>Calories:{entryData !== undefined && entryData.calories}</Col>
                 <Col>Fat:{entryData !== undefined && entryData.fat}</Col>
-                <Col><Button onClick={()=> deleteSingleEntry(entryData._id)}>delete entry</Button></Col>
-                <Col><Button onClick={()=> changeIngredient()}>change ingredients</Button></Col>
-                <Col><Button onClick={()=> changeEntry()}>change entry</Button></Col>
+                <Col><Button variant="danger" onClick={()=> deleteSingleEntry(entryData._id)}>
+                <i className="fas fa-trash-alt"></i> delete entry</Button></Col>
+                <Col><Button variant="info" onClick={()=> changeIngredient()}>
+                <i className="fas fa-pencil-alt"></i>  change ingredients</Button></Col>
+                <Col><Button variant="warning" onClick={()=> changeEntry()}>
+                <i className="fas fa-edit"></i>change entry</Button></Col>
             </Row>
         </Card>
     )
