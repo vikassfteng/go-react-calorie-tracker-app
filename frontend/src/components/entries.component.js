@@ -5,6 +5,7 @@ import axios from "axios";
 import {Button, Form, Container, Modal} from 'react-bootstrap'
 
 import Entry from './single-entry.component';
+import '../App.css';
 
 const Entries =() =>{
 
@@ -28,7 +29,7 @@ const Entries =() =>{
     return(
         <div>
             <Container>
-        <Button onClick={() => setAddNewEntry(true)}>Track today's calories</Button>
+        <Button className="track-calorie-button" onClick={() => setAddNewEntry(true)}>Track today's calories</Button>
             </Container>
             <Container>
         {entries != null && entries.map((entry, i) =>(
